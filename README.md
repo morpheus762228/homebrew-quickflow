@@ -4,8 +4,11 @@ Install QuickFlow (menu bar voice-to-text dictation, 100% on-device) with:
 
 ```bash
 brew tap morpheus762228/quickflow
+brew trust morpheus762228/quickflow   # required by Homebrew 6 for third-party casks
 brew install --cask quickflow
 ```
+
+Requires Homebrew 6 or newer.
 
 The cask downloads the app from the official
 [QuickFlow releases](https://github.com/morpheus762228/quickflow/releases)

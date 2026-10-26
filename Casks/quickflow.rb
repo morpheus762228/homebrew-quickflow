@@ -8,17 +8,15 @@ cask "quickflow" do
   desc "Menu bar voice-to-text dictation, 100% on-device"
   homepage "https://github.com/morpheus762228/quickflow"
 
-  depends_on macos: ">= :ventura"
+  depends_on macos: :ventura
 
   app "QuickFlow.app"
 
-  postflight do
-    # QuickFlow is ad-hoc signed (not notarized), so a quarantined copy is
-    # blocked by Gatekeeper on macOS 15. Drop the quarantine attribute
-    # Homebrew applies to the downloaded app so first launch is clean.
-    system_command "/usr/bin/xattr",
-                   args: ["-dr", "com.apple.quarantine", "#{appdir}/QuickFlow.app"],
-                   sudo: false
+  # QuickFlow is ad-hoc signed (not notarized), so a quarantined copy is
+  # blocked by Gatekeeper on macOS 15. Drop the quarantine attribute
+  # Homebrew applies to the downloaded app so first launch is clean.
+  postflight_steps do
+    run "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "{{appdir}}/QuickFlow.app"]
   end
 
   caveats "QuickFlow is not notarized; this cask removes the quarantine\n" \
